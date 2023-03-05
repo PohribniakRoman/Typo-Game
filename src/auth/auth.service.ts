@@ -11,8 +11,8 @@ export class AuthService {
     const { success } = await this.findUser(name);
     return success;
   }
-  async findUser(name):Promise<any>{
-    const result = await this.userModel.findOne({name});
+  async findUser(data):Promise<any>{
+    const result = await this.userModel.findOne({name:data});
     if(result !== null){
       return({user:result,success:true});
     }
