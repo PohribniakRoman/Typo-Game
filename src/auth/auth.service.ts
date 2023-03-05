@@ -20,11 +20,11 @@ export class AuthService {
   }
   async toRegister(user):Promise<User>{
     const  hash = this.passwordService.genHash(user.password);
-    const createUser = new this.userModel({name:user.name,password:hash});
+    const createUser = new this.userModel({name:user.login,password:hash});
     return createUser.save();
   }
   async checkPassword(data):Promise<boolean>{
-    const {user} = await this.findUser(data.name);
+    const {user} = await this.findUser(data.login);
     return this.passwordService.comparePassword(data.password,user.password);
   }
 }

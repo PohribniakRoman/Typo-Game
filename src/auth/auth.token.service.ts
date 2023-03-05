@@ -24,4 +24,16 @@ export class TokenServices{
     }
     return({success:false})
   }
+
+  async findTokenByToken(token):Promise<any>{
+    const foundToken = await this.tokenModel.findOne({token});
+    if(foundToken !== null){
+      return({token:foundToken.token,success:true});
+    }
+    return({success:false})
+  }
+  
+  async findIDByToken(token):Promise<any>{
+    return await this.tokenModel.findOne({token});
+  }
 }
