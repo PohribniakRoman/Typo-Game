@@ -7,7 +7,7 @@ export const Typo:React.FC = () => {
     window.addEventListener("keypress",(event)=>{
         console.log(event);
     })
-    return <section onClick={(event)=>setPhrase("lorem")}>
+    return <section onClick={()=>setPhrase("lorem")}>
         {phrase}
     </section>
 } 
