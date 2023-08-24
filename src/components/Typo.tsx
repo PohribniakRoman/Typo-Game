@@ -7,7 +7,7 @@ import { Cube } from "./Cube";
 
 export const Typo:React.FC = () => {
     const once= useRef<boolean>(true)
-    const phrase = useRef<string>("Lorem ipsum dolor sit amet.")
+    const phrase = useRef<string>("Lorem, ipsum.Lorem, ipsum.Lorem,  ipsum.Lorem, ipsum.Lorem, ipsum.Lorem, ipsum.")
     const carriage = useRef<number>(0);
     const dispatch = useDispatch();
     const typo = useSelector((state:State)=>state.typo)
@@ -32,15 +32,22 @@ export const Typo:React.FC = () => {
             })
         }
     },[])
-
-    console.log(typo);
     
-    return <ul className="typo">
-        {phrase.current.split("").map((symbol,index)=>{
-            if(typo[index]){
-                return <Cube key={index} success={typo[index].success} symbol={symbol}/>
-            }
-            return <Cube key={index} success={null} symbol={symbol}/>
-        })}
-    </ul>
+    return <div className="sceen__container">
+        <ul className="typo" style={{translate:`-${typo.filter(el=>el.success).length*100/phrase.current.length}%`}}>
+            {phrase.current.split("").map((symbol,index)=>{
+                if(typo[index]){
+                    return <Cube key={index} success={typo[index].success?"correct":"incorrect current"} symbol={symbol}/>
+                }
+                if(!typo[index] && typo[index-1] && typo[index-1].success){
+                    return <Cube key={index} success={"current"} symbol={symbol}/>
+                }
+                if(index === 0){
+                    return <Cube key={index} success={"current"} symbol={symbol}/>
+                }
+                return <Cube key={index} success={null} symbol={symbol}/>
+            })}
+        </ul>
+        <div className="typo__precentage">{`${Math.round(typo.filter(el=>el.success).length*100/phrase.current.length)}%`}</div>
+    </div>
 } 

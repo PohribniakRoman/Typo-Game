@@ -1,9 +1,13 @@
 .sceen {
   height: 100vh;
   height: 100svh;
-  font-size: 20px;
-  perspective: 40em;
+  font-size: 40px;
   position: relative;
   overflow: hidden;
-  perspective-origin: 0% calc(50% - 10em);
+  perspective: 40em;
+  perspective-origin: 70% calc(50% - 10em);
+  &__container{
+    transform-style: preserve-3d;
+    height: 100%;
+  }
 }
