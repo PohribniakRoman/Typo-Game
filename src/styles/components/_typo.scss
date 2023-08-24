@@ -1,4 +1,4 @@
-$height:4em;
+$height:3em;
 $width:1.5em;
 
 .typo{
@@ -7,17 +7,28 @@ $width:1.5em;
     transform-style: preserve-3d;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) rotateY(18deg);
     &__item{
+        font-weight: bold;
         transform-style: preserve-3d;
         width: $width;
         height: $height;
         margin: 2px;
         position: relative;
+        &.incorrect{
+            & .typo__item--particle{
+                background-color: rgb(121, 13, 13);
+                &.front{
+                    color: #fafafa;
+                    background-color: red;
+                }
+            }
+        }
         &.correct{
             & .typo__item--particle{
                 background-color: #c6ff87;
                 &.front{
+                    color: #fafafa;
                     background-color: #4eb43d;
                 }
             }
@@ -28,27 +39,27 @@ $width:1.5em;
             position: absolute;
             transition: .3s;
             &.front{
-                transform: translate3d(0,0,$height/2);
+                transform: translate3d(0,0,calc($height/2));
                 display: flex;
                 align-items: center;
                 justify-content: center;
             }
             &.bottom{
-                transform: rotateX(90deg) translate3d(0,0,-$height/2);
+                transform: rotateX(90deg) translate3d(0,0,calc($height / -2));
             }
             &.top{
-                transform: rotateX(90deg) translate3d(0,0,$height/2);
+                transform: rotateX(90deg) translate3d(0,0,calc($height/2));
             }
             &.back{
-                transform: translate3d(0,0,-$height/2);
+                transform: translate3d(0,0,calc($height / -2));
             }
             &.right{
                 width: $height;
-                transform: rotateY(90deg) translate3d(0,0,-10px);
+                transform: rotateY(90deg) translate3d(0,0,0);
             }
             &.left{
                 width: $height;
-                transform: rotateY(90deg) translate3d(0,0,calc($width * -1 - 10px));
+                transform: rotateY(90deg) translate3d(0,0,calc($width * -1));
             }
         }
     }
