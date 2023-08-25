@@ -6,7 +6,7 @@
   overflow: hidden;
   perspective: 40em;
   perspective-origin: 70% calc(50% - 10em);
-  &__container{
+  &__container {
     transform-style: preserve-3d;
     height: 100%;
   }

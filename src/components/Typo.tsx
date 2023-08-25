@@ -33,21 +33,23 @@ export const Typo:React.FC = () => {
         }
     },[])
     
+    const precentage = typo.filter(el=>el.success).length*100/phrase.current.length;
+
     return <div className="sceen__container">
-        <ul className="typo" style={{translate:`-${typo.filter(el=>el.success).length*100/phrase.current.length}%`}}>
+        <ul className="typo" style={{transform:`translate3d(-${0.572*precentage}%, ${Math.sin(31.5)*precentage -50}%, ${1.2 * precentage}em)`}}>
             {phrase.current.split("").map((symbol,index)=>{
                 if(typo[index]){
-                    return <Cube key={index} success={typo[index].success?"correct":"incorrect current"} symbol={symbol}/>
+                    return <Cube key={index} index={index} success={typo[index].success?"correct":"incorrect current"} symbol={symbol}/>
                 }
                 if(!typo[index] && typo[index-1] && typo[index-1].success){
-                    return <Cube key={index} success={"current"} symbol={symbol}/>
+                    return <Cube index={index} key={index} success={"current"} symbol={symbol}/>
                 }
                 if(index === 0){
-                    return <Cube key={index} success={"current"} symbol={symbol}/>
+                    return <Cube key={index} index={index} success={"current"} symbol={symbol}/>
                 }
-                return <Cube key={index} success={null} symbol={symbol}/>
+                return <Cube key={index} success={null} index={index} symbol={symbol}/>
             })}
         </ul>
-        <div className="typo__precentage">{`${Math.round(typo.filter(el=>el.success).length*100/phrase.current.length)}%`}</div>
+        <div className="typo__precentage">{`${Math.round(precentage )}%`}</div>
     </div>
 } 
