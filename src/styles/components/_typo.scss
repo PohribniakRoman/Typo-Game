@@ -29,11 +29,12 @@ $width: 2em;
       }
     }
     &.incorrect {
+      animation-name: incorrect;
+      animation-timing-function: ease-in-out;
+      animation-duration: .5s;
+      animation-iteration-count: 1;
       & .typo__item--particle {
-        background-color: rgba(121, 13, 13, 0.356);
         &.front {
-          color: #fafafa;
-          background-color: rgba(255, 0, 0, 0.363);
         }
       }
     }
@@ -75,5 +76,21 @@ $width: 2em;
         transform: rotateY(90deg) translate3d(0, 0, calc($width * -1 + 20px));
       }
     }
+  }
+}
+
+
+@keyframes incorrect{
+  0%{
+    translate: 0;
+  }
+  33%{
+    translate: 20%;
+  }
+  66%{
+    translate: -20%;
+  }
+  100%{
+    translate: 0;
   }
 }

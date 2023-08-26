@@ -9,25 +9,30 @@ export interface PhraseSymbol{
 }
 
 export type PhraseAction = {
-    type: "ADD_SYMBOL",
+    type: "ADD_SYMBOL" | "RESET",
     payload: PhraseSymbol,
 }
  
-const defaultState = [] as PhraseSymbol[];
+const storage = localStorage.getItem("typo");
+const defaultState = JSON.parse(storage?storage:`[]`)  as PhraseSymbol[];
 
 
-// const updateStorage = (state: Phrase) => {
-//     localStorage.setItem("phrase", JSON.stringify(state));
-//     return (state);
-// }
+
+const updateStorage = (state: PhraseSymbol[]) => {
+    localStorage.setItem("typo", JSON.stringify(state));
+    return (state);
+}
 
 
 export const typoReducer = (state = defaultState, action: PhraseAction) => {
     switch (action.type) {
         case "ADD_SYMBOL":{
             const newState = state.filter(symb=>symb.index !== action.payload.index)
-            return [...newState,action.payload];
+            return updateStorage([...newState,action.payload]);
         };
+        case "RESET" :{
+            return updateStorage([]);
+        }
         default:{
             return defaultState;
         }
