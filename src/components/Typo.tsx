@@ -1,10 +1,14 @@
-import { Component, useEffect, useRef} from "react"
+import { useEffect, useRef} from "react"
 import { useDispatch, useSelector } from "react-redux";
 import {FaHeart,FaHeartBroken} from "react-icons/fa"
 import { PhraseAction } from "../reducers/typoReducer";
 import { State } from "../reducers/combineReducer";
 import { Cube } from "./Cube";
 
+export interface Typo{
+    target:string;
+    complexity:1|2|3;
+}
 
 interface Carriage{
     index:number;
@@ -20,12 +24,9 @@ const carriageDefultState = {
     refreshing:false,
 }
 
-
-
-
-export const Typo:React.FC = () => {
+export const Typo:React.FC<Typo> = ({target,complexity}) => {
     const once= useRef<boolean>(true)
-    const phrase = useRef<string>("Lorem, ipsum.Lorem, ipsum.Lorem,  ipsum.Lorem, ipsum.Lorem, ipsum.Lorem, ipsum.")
+    const phrase = useRef<string>(target)
     const carriage = useRef<Carriage>(carriageDefultState);
     const dispatch = useDispatch();
     const typo = useSelector((state:State)=>state.typo)
@@ -49,11 +50,11 @@ export const Typo:React.FC = () => {
         }
         localStorage.setItem("carriage",JSON.stringify(carriage.current))
     }
-
+    
     const reset = () => {
-        carriage.current.index = 0;
-        carriage.current.typos = 0;
+        carriage.current = {...carriageDefultState};
         carriage.current.refreshing = false;
+        localStorage.setItem("carriage",JSON.stringify(carriage.current))
         dispatch({type:"RESET"})
     }
 
@@ -69,21 +70,20 @@ export const Typo:React.FC = () => {
         }
     },[])
     
-    const maxTypos = 3;
-    const precentage = typo.filter(el=>el.success).length*100/phrase.current.length;
+    const maxTypos = complexity;
+    const correctGuessed = typo.filter(el=>el.success).length;
+    const precentage = correctGuessed*100/phrase.current.length || 0;
+    
+    
     
     once.current && loadFromStorage();
-        
-    
     if(carriage.current.typos === maxTypos){
         carriage.current.refreshing = true;
         setTimeout(reset,1000)
     }
 
-
-
     return <div className="sceen__container">
-        <ul className="typo" style={{transform:`translate3d(-${0.572*precentage}%, ${Math.sin(31.5)*precentage -50}%, ${1.2 * precentage}em)`}}>
+        <ul className="typo" style={{transform:`translate3d(-${0.572*precentage}%, ${Math.sin(31.45)*precentage -50}%, ${1.4 * correctGuessed}em)`}}>
             {phrase.current.split("").map((symbol,index)=>{
                 if(typo[index]){
                     return <Cube key={index} index={index} success={typo[index].success?"correct":"incorrect current"} symbol={symbol}/>
@@ -97,12 +97,12 @@ export const Typo:React.FC = () => {
                 return <Cube key={index} success={null} index={index} symbol={symbol}/>
             })}
         </ul>
-        <div className="typo__precentage">{`${Math.round(precentage )}%`}</div>
+        <div className="typo__precentage">{`${Math.round(precentage)}%`}</div>
         <button className="typo__reset" onClick={reset}>Reset</button>
         <ul>
             {new Array(maxTypos).fill(1).map((el,index)=>{
                 return  <li key={el+index}>
-                    {carriage.current.typos < index+1
+                    {carriage.current.typos < index+el
                     ?<FaHeart/>
                     :<FaHeartBroken/>
                     }
