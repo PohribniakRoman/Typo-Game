@@ -5,7 +5,7 @@ export const Sceen:React.FC = () => {
     const [phrase,setPhrase] = useState<string|null>(null);
     return <section className="sceen">
         {phrase
-            ?<Typo complexity={1} target={phrase}/>
+            ?<Typo complexity={3} target={phrase}/>
             :<form onSubmit={(event)=>{
                 event.preventDefault();
                 const element = event.target as HTMLFormElement;
@@ -15,5 +15,10 @@ export const Sceen:React.FC = () => {
                 <button type="submit">Submit</button>
             </form>
         }
+        <div className="stars__container">
+            <div id='stars'></div>
+            <div id='stars2'></div>
+            <div id='stars3'></div>
+        </div>
     </section>
 }
