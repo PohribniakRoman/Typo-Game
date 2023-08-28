@@ -10,9 +10,23 @@ $width: 2em;
   transition: 0.3s;
   &__precentage {
     position: absolute;
+    color: #fafafa;
+    font-size: 18px;
     bottom: 20px;
     left: 50%;
     transform: translateY(-50%);
+    font-style: italic;
+    &::before{
+      content: "Precentage:";
+      color: #fafafa;
+      position: absolute;
+      bottom: 100%;
+      margin-bottom: 5px;
+      left: 50%;
+      font-size: 12px;
+      font-style: italic;
+      transform: translateX(-50%);
+    }
   }
   &__item {
     perspective: 40em;
@@ -73,6 +87,16 @@ $width: 2em;
         transform: rotateY(90deg) translate3d(0, 0, calc($width * -1 + 20px));
       }
     }
+  }
+  &__lives{
+    position: absolute;
+    color: red;
+    top: 38%;
+    left: 50%;
+    display: flex;
+    transform: translate(-40%,-50%);
+    gap: 14px;
+    font-size: 18px;
   }
 }
 

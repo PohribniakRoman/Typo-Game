@@ -83,7 +83,7 @@ export const Typo:React.FC<Typo> = ({target,complexity}) => {
     }
 
     return <div className="sceen__container">
-        <ul className="typo" style={{transform:`translate3d(-${0.572*precentage}%, ${Math.sin(31.45)*precentage -50}%, ${1.4 * correctGuessed}em)`}}>
+        <ul className="typo" style={{transform:`translate3d(-${0.5688*precentage}%, ${Math.sin(31.92)*precentage -50}%, ${1.4 * correctGuessed}em)`}}>
             {phrase.current.split("").map((symbol,index)=>{
                 if(typo[index]){
                     return <Cube key={index} index={index} success={typo[index].success?"correct":"incorrect current"} symbol={symbol}/>
@@ -99,9 +99,9 @@ export const Typo:React.FC<Typo> = ({target,complexity}) => {
         </ul>
         <div className="typo__precentage">{`${Math.round(precentage)}%`}</div>
         <button className="typo__reset" onClick={reset}>Reset</button>
-        <ul>
+        <ul className="typo__lives">
             {new Array(maxTypos).fill(1).map((el,index)=>{
-                return  <li key={el+index}>
+                return  <li className="typo__lives--item" key={el+index}>
                     {carriage.current.typos < index+el
                     ?<FaHeart/>
                     :<FaHeartBroken/>
