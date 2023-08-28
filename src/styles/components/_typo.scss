@@ -77,11 +77,13 @@ $width: 2em;
       animation-iteration-count: 1;
     }
     &.correct {
+      animation-name: correct;
+      animation-duration: .7s;
+      animation-iteration-count: 1;
       & .typo__item--particle {
-        background-color: #6fe4ff;
+        background-color:#6fe4ff;
         &.front {
-          color: #fafafa;
-          box-shadow:inset 2em 0em #3573e0;
+          background-color: #3573e0;
         }
       }
     }
@@ -145,7 +147,10 @@ $width: 2em;
 
 @keyframes correct{
   0%{
-
+    scale:0.8;
+  }
+  100%{
+    scale:1;
   }
 }
 @keyframes spin{
