@@ -1,11 +1,13 @@
+$unit-of-measurement:2.6vw;
+
 .sceen {
   height: 100vh;
   height: 100svh;
-  font-size: 40px;
+  font-size: $unit-of-measurement;
   position: relative;
   overflow: hidden;
-  perspective: 40em;
-  perspective-origin: 70% calc(50% - 10em);
+  perspective:  calc($unit-of-measurement * 40);
+  perspective-origin: 70% calc(50% - $unit-of-measurement * 10);
   &__container {
     transform-style: preserve-3d;
     height: 100%;

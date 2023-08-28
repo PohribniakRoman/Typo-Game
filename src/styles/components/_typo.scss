@@ -14,7 +14,7 @@ $width: 2em;
     font-size: 18px;
     bottom: 20px;
     left: 50%;
-    transform: translateY(-50%);
+    transform: translateX(-50%);
     font-style: italic;
     &::before{
       content: "Precentage:";
@@ -26,6 +26,33 @@ $width: 2em;
       font-size: 12px;
       font-style: italic;
       transform: translateX(-50%);
+    }
+  }
+  &__reset{
+    border:none;
+    background-color: rgba(0,0,0,0);
+    color: #fafafa;
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    outline: none;
+    cursor: pointer;
+    transition: .3s;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+   
+    &:hover{
+      scale: 1.1;
+    }
+    & svg{
+      pointer-events: none;
+    }
+    &.spin{
+      animation-name: spin;
+      animation-duration:.5s;
+      animation-iteration-count: 1;
     }
   }
   &__item {
@@ -80,11 +107,11 @@ $width: 2em;
       }
       &.right {
         width: $height;
-        transform: rotateY(90deg) translate3d(0, 0, 20px);
+        transform: rotateY(90deg) translate3d(0, 0, 0.5em);
       }
       &.left {
         width: $height;
-        transform: rotateY(90deg) translate3d(0, 0, calc($width * -1 + 20px));
+        transform: rotateY(90deg) translate3d(0, 0, calc($width * -1 + 0.5em));
       }
     }
   }
@@ -92,8 +119,8 @@ $width: 2em;
     position: absolute;
     color: red;
     top: 38%;
-    left: 50%;
     display: flex;
+    left: 50%;
     transform: translate(-40%,-50%);
     gap: 14px;
     font-size: 18px;
@@ -119,5 +146,13 @@ $width: 2em;
 @keyframes correct{
   0%{
 
+  }
+}
+@keyframes spin{
+  0%{
+    transform: rotate(0turn);
+  }
+  100%{
+    transform: rotate(1turn);
   }
 }

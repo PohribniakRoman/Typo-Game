@@ -1,16 +1,20 @@
-import { useEffect, useRef} from "react"
+import { useCallback, useEffect, useRef} from "react"
 import { useDispatch, useSelector } from "react-redux";
 import {FaHeart,FaHeartBroken} from "react-icons/fa"
 import { PhraseAction } from "../reducers/typoReducer";
 import { State } from "../reducers/combineReducer";
 import { Cube } from "./Cube";
+import {RiRefreshLine} from "react-icons/ri";
+import { ProggressCounter } from "./ProggressCounter";
+import { Reset } from "./Reset";
+import { Lives } from "./Lives";
 
 export interface Typo{
     target:string;
     complexity:1|2|3;
 }
 
-interface Carriage{
+export interface Carriage{
     index:number;
     typos:number;
     streek:number;
@@ -31,7 +35,7 @@ export const Typo:React.FC<Typo> = ({target,complexity}) => {
     const dispatch = useDispatch();
     const typo = useSelector((state:State)=>state.typo)
     
-    const handlePress = (event:KeyboardEvent) => {
+    const handlePress = useCallback((event:KeyboardEvent) => {
         if(carriage.current.refreshing)return
         if(event.key === phrase.current[carriage.current.index]){
             dispatch({type:"ADD_SYMBOL",payload:{
@@ -49,7 +53,7 @@ export const Typo:React.FC<Typo> = ({target,complexity}) => {
             carriage.current.streek = 0;
         }
         localStorage.setItem("carriage",JSON.stringify(carriage.current))
-    }
+    },[])
     
     const reset = () => {
         carriage.current = {...carriageDefultState};
@@ -83,7 +87,7 @@ export const Typo:React.FC<Typo> = ({target,complexity}) => {
     }
 
     return <div className="sceen__container">
-        <ul className="typo" style={{transform:`translate3d(-${0.5688*precentage}%, ${Math.sin(31.92)*precentage -50}%, ${1.4 * correctGuessed}em)`}}>
+        <ul className="typo" style={{transform:`translate3d(-${0.58*precentage}%, ${Math.sin(31.92)*precentage -50}%, ${1.4 * correctGuessed}em)`}}>
             {phrase.current.split("").map((symbol,index)=>{
                 if(typo[index]){
                     return <Cube key={index} index={index} success={typo[index].success?"correct":"incorrect current"} symbol={symbol}/>
@@ -97,18 +101,16 @@ export const Typo:React.FC<Typo> = ({target,complexity}) => {
                 return <Cube key={index} success={null} index={index} symbol={symbol}/>
             })}
         </ul>
-        <div className="typo__precentage">{`${Math.round(precentage)}%`}</div>
-        <button className="typo__reset" onClick={reset}>Reset</button>
-        <ul className="typo__lives">
-            {new Array(maxTypos).fill(1).map((el,index)=>{
-                return  <li className="typo__lives--item" key={el+index}>
-                    {carriage.current.typos < index+el
-                    ?<FaHeart/>
-                    :<FaHeartBroken/>
-                    }
-                </li>
-            })}
-        </ul>
+
+
+        <div className="typo__precentage">
+            <ProggressCounter value={Math.round(precentage)}/>
+        </div>
+
+
+        <Reset reset={reset}/>
+
+        <Lives lives={maxTypos} carriage={carriage}/>
         Streek:{carriage.current.streek}
     </div>
 } 
