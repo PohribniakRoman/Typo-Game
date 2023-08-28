@@ -22,6 +22,7 @@ $width: 2em;
     height: $height;
     position: relative;
     margin-right: 1em;
+    color: #fafafa;
     user-select: none;
     &.current {
       & .typo__item--particle {
@@ -36,10 +37,10 @@ $width: 2em;
     }
     &.correct {
       & .typo__item--particle {
-        background-color: #c6ff87;
+        background-color: #6fe4ff;
         &.front {
           color: #fafafa;
-          background-color: #4eb43d;
+          box-shadow:inset 2em 0em #3573e0;
         }
       }
     }
@@ -88,5 +89,11 @@ $width: 2em;
   }
   100%{
     translate: 0;
+  }
+}
+
+@keyframes correct{
+  0%{
+
   }
 }
