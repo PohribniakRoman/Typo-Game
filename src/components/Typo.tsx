@@ -34,7 +34,7 @@ export const Typo:React.FC = () => {
     const dispatch = useDispatch();
     const once= useRef<boolean>(true)
     const gameState = useSelector((state:State)=>state)
-    const phrase = useRef(gameState.game.phrase)
+    const phrase = useRef(`${gameState.game.phrase}`)
     const timer = useRef<Timer>({refresh:true,start:false}) 
     const carriage = useRef<Carriage>(JSON.parse(JSON.stringify(carriageDefultState)));
     
@@ -57,8 +57,7 @@ export const Typo:React.FC = () => {
     },[])
     once.current && loadFromStorage();
 
-    const handlePress = useCallback((event:KeyboardEvent) => {
-        console.log("worked");
+    const handlePress = (event:KeyboardEvent) => {
         if(carriage.current.refreshing)return
         if(phrase.current && event.key === phrase.current[carriage.current.index]){
             dispatch({type:"ADD_SYMBOL",payload:{
@@ -76,12 +75,12 @@ export const Typo:React.FC = () => {
             carriage.current.streek = 0;
         }
         localStorage.setItem("carriage",JSON.stringify(carriage.current))
-    },[])
+    }
     
+    console.log(carriage.current);  
     const reset = useCallback(() => {
         carriage.current = JSON.parse(JSON.stringify(carriageDefultState));
         carriage.current.refreshing = false;
-        localStorage.setItem("carriage",JSON.stringify(carriage.current));
         timer.current.refresh = true;
         timer.current.start = false;
         dispatch({type:"RESET"})
@@ -101,8 +100,11 @@ export const Typo:React.FC = () => {
     const visualizePrecentage = precentage === 100?(correctGuessed-1)*100/phrase.current.length:precentage;
     
         
+    if(carriage.current.typos > maxTypos){
+        reset();
+    }
 
-    if(carriage.current.typos === maxTypos){
+    if(carriage.current.typos === maxTypos ){
         carriage.current.refreshing = true;
         setTimeout(reset,1000);
     }
