@@ -153,7 +153,29 @@ $width: 2em;
       transform: translateX(-50%);
     }
   }
+  &__quit{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fafafa;
+    padding: 5px 10px;
+    border-radius: 10px;
+    transition: .3s;
+    background-color: red;
+    cursor: pointer;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 20px;
+    &:hover{
+      scale: 1.1;
+    }
+    &:active{
+      scale: 0.98;
+    }
+  }
   &__timer{
+    user-select: none;
     position: relative;
     color: #fafafa;
     font-size: 18px;

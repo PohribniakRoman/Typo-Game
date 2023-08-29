@@ -10,8 +10,9 @@ const generate0String = (value:number,target:number):string => {
     return `${acc.join("")}${value}`
 }
 
+const prevState = localStorage.getItem("time");
 export const Timer:React.FC<Timer> = ({triggered,reset}) => {
-    const [time,setTime] = useState<number>(0)
+    const [time,setTime] = useState<number>(prevState?JSON.parse(prevState):0)
     const intervalRef = useRef<null|number>(null)
 
     useEffect(()=>{
@@ -22,9 +23,10 @@ export const Timer:React.FC<Timer> = ({triggered,reset}) => {
         if(triggered){
             intervalRef.current =  setInterval(()=>{
                 setTime(prev=>prev+1)
+                localStorage.setItem("timer",JSON.stringify(time));
             },1)
         }
-    },[triggered])
+    },[triggered,reset])
     return <div className="typo__timer">
         <span className="typo__timer--item">{generate0String(Math.floor(time / 60000),2)}</span>
         :

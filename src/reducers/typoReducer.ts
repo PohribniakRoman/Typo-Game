@@ -31,7 +31,10 @@ export const typoReducer = (state = defaultState, action: PhraseAction) => {
             return updateStorage([...newState,action.payload]);
         };
         case "RESET" :{
-            return updateStorage([]);
+            localStorage.removeItem("time");
+            localStorage.removeItem("typo")
+            localStorage.removeItem("carriage")
+            return [];
         }
         default:{
             return defaultState;
