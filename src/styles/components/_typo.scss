@@ -9,12 +9,9 @@ $width: 2em;
   left: 50%;
   transition: 0.3s;
   &__precentage {
-    position: absolute;
+    position: relative;
     color: #fafafa;
-    font-size: 18px;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    font-size: 24px;
     font-style: italic;
     &::before{
       content: "Precentage:";
@@ -23,7 +20,7 @@ $width: 2em;
       bottom: 100%;
       margin-bottom: 5px;
       left: 50%;
-      font-size: 12px;
+      font-size: 16px;
       font-style: italic;
       transform: translateX(-50%);
     }
@@ -42,7 +39,6 @@ $width: 2em;
     top: 70%;
     left: 50%;
     transform: translate(-50%,-50%);
-   
     &:hover{
       scale: 1.1;
     }
@@ -50,9 +46,11 @@ $width: 2em;
       pointer-events: none;
     }
     &.spin{
-      animation-name: spin;
-      animation-duration:.5s;
-      animation-iteration-count: 1;
+      & svg{
+        animation-name: spin;
+        animation-duration:.5s;
+        animation-iteration-count: 1;
+      }
     }
   }
   &__item {
@@ -126,6 +124,63 @@ $width: 2em;
     transform: translate(-40%,-50%);
     gap: 14px;
     font-size: 18px;
+  }
+  &__footer{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    align-items: center;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 40px;
+  }
+  &__streak{
+    position: relative;
+    color: #fafafa;
+    font-size: 18px;
+    margin-left: 15px;
+    font-style: italic;
+    &::before{
+      content: "Streak:";
+      color: #fafafa;
+      position: absolute;
+      bottom: 100%;
+      margin-bottom: 5px;
+      left: 50%;
+      font-size: 12px;
+      font-style: italic;
+      transform: translateX(-50%);
+    }
+  }
+  &__timer{
+    position: relative;
+    color: #fafafa;
+    font-size: 18px;
+    font-style: italic;
+    &::before{
+      content: "Timer:";
+      color: #fafafa;
+      position: absolute;
+      bottom: 100%;
+      margin-bottom: 5px;
+      left: 50%;
+      font-size: 12px;
+      font-style: italic;
+      transform: translateX(-50%);
+    }
+    &--item:nth-child(1){
+      width: 23px;
+      display: inline-block;
+    }
+    &--item:nth-child(2){
+      width: 23px;
+      display: inline-block;
+    }
+    &--item:nth-child(3){
+      width: 35px;
+      display: inline-block;
+    }
   }
 }
 

@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useRef} from "react"
 import { useDispatch, useSelector } from "react-redux";
-import {FaHeart,FaHeartBroken} from "react-icons/fa"
 import { PhraseAction } from "../reducers/typoReducer";
 import { State } from "../reducers/combineReducer";
 import { Cube } from "./Cube";
-import {RiRefreshLine} from "react-icons/ri";
 import { ProggressCounter } from "./ProggressCounter";
 import { Reset } from "./Reset";
 import { Lives } from "./Lives";
+import { Streak } from "./Streak";
+import { Timer } from "./Timer";
 
 export interface Typo{
     target:string;
@@ -77,9 +77,10 @@ export const Typo:React.FC<Typo> = ({target,complexity}) => {
     const maxTypos = complexity;
     const correctGuessed = typo.filter(el=>el.success).length;
     const precentage = correctGuessed*100/phrase.current.length || 0;
+    const visualizePrecentage = precentage === 100?(correctGuessed-1)*100/phrase.current.length:precentage;
     
-    
-    
+    console.log(typo.length);
+        
     once.current && loadFromStorage();
     if(carriage.current.typos === maxTypos){
         carriage.current.refreshing = true;
@@ -87,7 +88,7 @@ export const Typo:React.FC<Typo> = ({target,complexity}) => {
     }
 
     return <div className="sceen__container">
-        <ul className="typo" style={{transform:`translate3d(-${0.58*precentage}%, ${Math.sin(31.92)*precentage -50}%, ${1.4 * correctGuessed}em)`}}>
+        <ul className="typo" style={{transform:`translate3d(-${0.601* visualizePrecentage}%, ${Math.sin(32)* visualizePrecentage -50}%, ${1.4 * precentage===100?correctGuessed-1:correctGuessed}em)`}}>
             {phrase.current.split("").map((symbol,index)=>{
                 if(typo[index]){
                     return <Cube key={index} index={index} success={typo[index].success?"correct":"incorrect current"} symbol={symbol}/>
@@ -101,16 +102,16 @@ export const Typo:React.FC<Typo> = ({target,complexity}) => {
                 return <Cube key={index} success={null} index={index} symbol={symbol}/>
             })}
         </ul>
-
-
-        <div className="typo__precentage">
-            <ProggressCounter value={Math.round(precentage)}/>
-        </div>
-
+        <Lives lives={maxTypos} carriage={carriage}/>
 
         <Reset reset={reset}/>
 
-        <Lives lives={maxTypos} carriage={carriage}/>
-        Streek:{carriage.current.streek}
+        <div className="typo__footer">
+            <Timer reset={precentage===100?false:true}  triggered={precentage===100?false:typo.length !== 0}/>
+            <div className="typo__precentage">
+                <ProggressCounter value={Math.round(precentage)}/>
+            </div>
+            <Streak streak={carriage.current.streek}/>
+        </div>
     </div>
 } 
