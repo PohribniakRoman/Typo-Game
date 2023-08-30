@@ -2,6 +2,7 @@ $height: 3em;
 $width: 2em;
 
 .typo {
+  user-select: none;
   display: flex;
   position: absolute;
   transform-style: preserve-3d;
@@ -26,16 +27,16 @@ $width: 2em;
     }
   }
   &__reset{
+    position: absolute;
+    z-index: 100;
     border:none;
     background-color: rgba(0,0,0,0);
     color: #fafafa;
     font-size: 24px;
     width: 24px;
     height: 24px;
-    outline: none;
     cursor: pointer;
     transition: .3s;
-    position: absolute;
     top: 70%;
     left: 50%;
     transform: translate(-50%,-50%);

@@ -1,22 +1,19 @@
 export type AccumulatorItem = {
-    symbol:string;
-    state:"ERROR"|"SUCCESS"|"LOADED";
+    symbol: string;
+    state: "ERROR" | "SUCCESS" | "LOADED";
 }
 
-export interface PhraseSymbol{
-    index:number;
-    success:boolean
+export interface PhraseSymbol {
+    index: number;
+    success: boolean
 }
 
 export type PhraseAction = {
     type: "ADD_SYMBOL" | "RESET",
     payload: PhraseSymbol,
 }
- 
-const storage = localStorage.getItem("typo");
-const defaultState = JSON.parse(storage?storage:`[]`)  as PhraseSymbol[];
 
-
+const defaultState = [] as PhraseSymbol[];
 
 const updateStorage = (state: PhraseSymbol[]) => {
     localStorage.setItem("typo", JSON.stringify(state));
@@ -25,19 +22,21 @@ const updateStorage = (state: PhraseSymbol[]) => {
 
 
 export const typoReducer = (state = defaultState, action: PhraseAction) => {
+    console.log(state);
     switch (action.type) {
-        case "ADD_SYMBOL":{
-            const newState = state.filter(symb=>symb.index !== action.payload.index)
-            return updateStorage([...newState,action.payload]);
+        case "ADD_SYMBOL": {
+            const newState = state.filter(symb => symb.index !== action.payload.index)
+            return updateStorage([...newState, action.payload]);
         };
-        case "RESET" :{
-            localStorage.removeItem("time");
-            localStorage.removeItem("typo")
-            localStorage.removeItem("carriage")
-            return [];
+        case "RESET": {
+            localStorage.removeItem("carriage");
+            localStorage.removeItem("timer");
+            localStorage.removeItem("typo");
+            return new Array();
         }
-        default:{
-            return defaultState;
+        default: {
+            const storage = localStorage.getItem("typo");
+            return storage ? JSON.parse(storage) : defaultState;
         }
     }
 }

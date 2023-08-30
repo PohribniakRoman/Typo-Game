@@ -10,7 +10,7 @@ const generate0String = (value:number,target:number):string => {
     return `${acc.join("")}${value}`
 }
 
-const prevState = localStorage.getItem("time");
+const prevState = localStorage.getItem("timer");
 export const Timer:React.FC<Timer> = ({triggered,reset}) => {
     const [time,setTime] = useState<number>(prevState?JSON.parse(prevState):0)
     const intervalRef = useRef<null|number>(null)
@@ -22,9 +22,16 @@ export const Timer:React.FC<Timer> = ({triggered,reset}) => {
         }
         if(triggered){
             intervalRef.current =  setInterval(()=>{
-                setTime(prev=>prev+1)
-                localStorage.setItem("timer",JSON.stringify(time));
+                setTime(prev=>{
+                    return prev+1
+                })
             },1)
+        }
+        return ()=>{
+            setTime(prev=>{
+                localStorage.setItem("timer",JSON.stringify(prev));
+                return prev;
+            })
         }
     },[triggered,reset])
     return <div className="typo__timer">
