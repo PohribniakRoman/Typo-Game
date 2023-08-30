@@ -116,7 +116,7 @@ export const Typo:React.FC = () => {
         <Reset reset={reset}/>
     <div className="sceen__container">
 
-        <ul className="typo" style={{transform:`translate3d(-${0.601* visualizePrecentage}%, ${Math.sin(31.6) * visualizePrecentage -50}%, ${1.4 * precentage===100?correctGuessed-1:correctGuessed}em)`}}>
+        <ul className="typo" style={{transform:`translate3d(-${0.575* visualizePrecentage}%, ${-50}%, ${1.5 * (precentage===100?correctGuessed-1:correctGuessed)}em)`}}>
             {game.phrase.split("").map((symbol,index)=>{
                 if(typo[index]){
                     return <Cube key={index} index={index} success={typo[index].success?"correct":"incorrect current"} symbol={symbol}/>
