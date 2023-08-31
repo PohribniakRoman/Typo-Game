@@ -22,7 +22,6 @@ const updateStorage = (state: PhraseSymbol[]) => {
 
 
 export const typoReducer = (state = defaultState, action: PhraseAction) => {
-    console.log(state);
     switch (action.type) {
         case "ADD_SYMBOL": {
             const newState = state.filter(symb => symb.index !== action.payload.index)
@@ -32,7 +31,7 @@ export const typoReducer = (state = defaultState, action: PhraseAction) => {
             localStorage.removeItem("carriage");
             localStorage.removeItem("timer");
             localStorage.removeItem("typo");
-            return new Array();
+            return updateStorage(new Array());
         }
         default: {
             const storage = localStorage.getItem("typo");

@@ -40,18 +40,6 @@ export const Typo:React.FC = () => {
 
     if(!game.phrase || !game.complexity)return;
 
-    if(typo.filter(el=>el.success).length === game.phrase.length){
-        timer.current.start = false;
-        timer.current.refresh = false;
-    }else if(typo.length){
-        timer.current.start = true;
-        timer.current.refresh = true;
-    }else{
-        timer.current.refresh = true;
-    }
-
-  
-    
     const loadFromStorage = useCallback(() => {
         const storage = localStorage.getItem("carriage");
         if(storage)carriage.current = JSON.parse(storage);
@@ -91,7 +79,9 @@ export const Typo:React.FC = () => {
     
     
     useEffect(()=>{
-        reset();
+        if(!localStorage.getItem("carriage")){
+            reset();
+        }
     },[game.phrase])
 
     useEffect(()=>{
@@ -111,9 +101,21 @@ export const Typo:React.FC = () => {
         timer.current.start = false;
         setTimeout(reset,1000);
     }
+    
+    if(typo.filter(el=>el.success).length === game.phrase?.length){
+        timer.current.start = false;
+        timer.current.refresh = false;
+    }else if(typo.length){
+        timer.current.start = true;
+        timer.current.refresh = false;
+    }else{
+        timer.current.refresh = true;
+        timer.current.start = false;
+    }
 
+    
     return <>
-        <Reset reset={reset}/>
+    <Reset  reset={reset}/>
     <div className="sceen__container">
 
         <ul className="typo" style={{transform:`translate3d(-${0.575* visualizePrecentage}%, ${-50}%, ${1.5 * (precentage===100?correctGuessed-1:correctGuessed)}em)`}}>
