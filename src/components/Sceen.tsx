@@ -22,7 +22,7 @@ export const Sceen:React.FC = () => {
     return <section className="sceen">
         {gameState.isStarted
             ?<Typo/>
-            :<form onSubmit={hadleSubmit}>
+            :<form onSubmit={hadleSubmit} className="sceen__form">
                 <input type="text" name="phrase" required/>
                 <input type="number" name="complexity" defaultValue={3} min={1} max={3}/>
                 <button type="submit">Submit</button>
