@@ -1,12 +1,97 @@
+$slide-height:220px;
+$slide-width:150px;
+$slide-gap:20px;
+
 .slides{
     font-size: 16px;
-    color: #fafafa;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    &__list{
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center ;
+        height: $slide-height;
+        width: calc($slide-width * 6 + $slide-gap * 5);
+        margin: 20px;
+        transform-style: preserve-3d;
+    }
+    &__item{
+        position: absolute;
+        opacity: 0;
+        height: $slide-height;
+        width: 150px;
+        transition: .3s;
+        background-color: #fafafa;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        z-index: -1;
+        &[data-position="-3"]{
+            transform: translate(- calc($slide-width * 2 + $slide-gap)) rotateY(-70deg);
+        }
+        &[data-position="3"]{
+            transform: translate(calc($slide-width * 2 + $slide-gap)) rotateY(70deg);
+        }
+        &[data-position="-2"]{
+            opacity:1;
+            opacity:0.6;
+            color: blue;
+            filter: grayscale(0.6);
+            transform: translate(- calc($slide-width * 2 + $slide-gap)) rotateY(-45deg);
+        }
+        &[data-position="-1"]{
+            opacity:0.8;
+            opacity:1;
+            color: green;
+            filter: grayscale(0.8);
+            transform: translate(- calc($slide-width + $slide-gap)) rotateY(-20deg);
+        }
+        &[data-position="0"]{
+            z-index: 1;
+            opacity:1;
+            color: red;
+        }
+        &[data-position="1"]{
+            opacity:1;
+            color: green;
+            transform: translate(calc($slide-width + $slide-gap)) rotateY(20deg);
+            filter: grayscale(0.8);
+            opacity:0.8;
+        }
+        &[data-position="2"]{
+            transform: translate(calc($slide-width * 2 + $slide-gap)) rotateY(45deg);
+            filter: grayscale(0.6);
+            opacity:0.6;
+            color: blue;
+        }
+    }
     &__controls{
         display: flex;
         color: #fafafa;
+        gap: 20px;
         &--arrows{
+            font-size: 20px;
             cursor: pointer;
-            border: 1px solid #fafafa;
+            border: 3px solid #fafafa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            transition: .3s;
+            &:hover{
+                background-color: rgba($color: #fafafa, $alpha: 0.2);
+            }
+            &:active{
+                scale: 0.92;
+            }
         }
     }
 }
