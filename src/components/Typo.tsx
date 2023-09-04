@@ -9,6 +9,7 @@ import { Lives } from "./Lives";
 import { Streak } from "./Streak";
 import { Timer } from "./Timer";
 import { Quit } from "./Quit";
+import { GameAction } from "../reducers/gameReducer";
 
 
 interface Timer{
@@ -21,6 +22,7 @@ export interface Carriage{
     typos:number;
     streek:number;
     refreshing?:boolean;
+    score:number;
 }
 
 const carriageDefultState = {
@@ -28,11 +30,13 @@ const carriageDefultState = {
     typos:0,
     streek:0,
     refreshing:false,
+    score:0,
 }
 
 export const Typo:React.FC = () => {
     const dispatch = useDispatch();
-    const once= useRef<boolean>(true)
+    const once= useRef<boolean>(true);
+    const timerRef = useRef<any>(null);
     const typo = useSelector((state:State)=>state.typo)
     const game = useSelector((state:State)=>state.game)
     const timer = useRef<Timer>({refresh:true,start:false}) 
@@ -56,6 +60,7 @@ export const Typo:React.FC = () => {
             }} as PhraseAction)
             carriage.current.index+=1;
             carriage.current.streek+=1;
+            carriage.current.score+=carriage.current.streek;
         }else{
             dispatch({type:"ADD_SYMBOL",payload:{
                 index:carriage.current.index,
@@ -71,6 +76,7 @@ export const Typo:React.FC = () => {
         carriage.current.index = 0;
         carriage.current.streek = 0;
         carriage.current.typos = 0;
+        carriage.current.score = 0;
         carriage.current.refreshing = false;
         timer.current.refresh = true;
         timer.current.start = false;
@@ -113,11 +119,21 @@ export const Typo:React.FC = () => {
         timer.current.start = false;
     }
 
-    
+    useEffect(()=>{
+        if(precentage === 100){
+            setTimeout(() => {
+                dispatch({type:"SET_PROGRESS",payload:{
+                    progress:100,
+                    score:carriage.current.score,
+                    time:timerRef.current.innerText,
+                }} as GameAction)
+            }, 300);
+        }
+    },[precentage])
+
     return <>
     <Reset  reset={reset}/>
     <div className="sceen__container">
-
         <ul className="typo" style={{transform:`translate3d(-${0.575* visualizePrecentage}%, ${-50}%, ${1.5 * (precentage===100?correctGuessed-1:correctGuessed)}em)`}}>
             {game.phrase.split("").map((symbol,index)=>{
                 if(typo[index]){
@@ -136,7 +152,7 @@ export const Typo:React.FC = () => {
 
 
         <div className="typo__footer">
-            <Timer reset={timer.current.refresh} triggered={timer.current.start}/>
+            <Timer timer={timerRef} reset={timer.current.refresh} triggered={timer.current.start}/>
             <div className="typo__precentage">
                 <ProggressCounter value={Math.round(precentage)}/>
             </div>

@@ -1,5 +1,5 @@
 export interface GameAction{
-    type:"SET_TIME"|"SET_SCORE"|"START_GAME"|"END_GAME"|"SET_PROGRESS"|"RESET_GAME";
+    type:"START_GAME"|"SET_PROGRESS"|"RESET_GAME";
     payload:any;
 }
 
@@ -8,7 +8,7 @@ export interface Game{
     phrase:null|string;
     complexity:null|1|2|3;
     time:null|string;
-    score:null|number;
+    score:number;
     progress:null|number;
     showEndScreen:boolean;
 }
@@ -17,7 +17,7 @@ const defaultState = {
     phrase:null,
     complexity:null,
     time:null,
-    score:null,
+    score:0,
     progress:null,
     isStarted:false,
     showEndScreen:false,
@@ -31,19 +31,12 @@ const updateStorage = (state: Game) => {
 
 export const gameReducer = (state=defaultState,action:GameAction) => {
     switch (action.type){
-        case "SET_SCORE":{
-            const newState = JSON.parse(JSON.stringify(state)) as Game;
-            newState.score = action.payload.score;
-            return updateStorage(newState);
-        }
-        case "SET_TIME":{
-            const newState = JSON.parse(JSON.stringify(state)) as Game;
-            newState.time = action.payload.time;
-            return updateStorage(newState);
-        }
         case "SET_PROGRESS":{
             const newState = JSON.parse(JSON.stringify(state)) as Game;
             newState.progress = action.payload.progress;
+            newState.score = action.payload.score;
+            newState.time = action.payload.time;
+            newState.showEndScreen = true;
             return updateStorage(newState);
         }
         case "START_GAME":{
@@ -51,11 +44,6 @@ export const gameReducer = (state=defaultState,action:GameAction) => {
             newState.phrase = action.payload.phrase;
             newState.complexity = action.payload.complexity;
             newState.isStarted = true;
-            return updateStorage(newState);
-        };
-        case "END_GAME":{
-            const newState = JSON.parse(JSON.stringify(state)) as Game;
-            newState.showEndScreen = true;
             return updateStorage(newState);
         };
         case "RESET_GAME":{

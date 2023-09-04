@@ -13,6 +13,7 @@ export const Quit:React.FC<Quit> = ({carriage,timer}) =>{
         carriage.current.index = 0;
         carriage.current.streek = 0;
         carriage.current.typos = 0;
+        carriage.current.score = 0;
         carriage.current.refreshing = false;
         timer.current.refresh = true;
         timer.current.start = false;

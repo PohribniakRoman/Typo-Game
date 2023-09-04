@@ -1,0 +1,61 @@
+.endscreen{
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    background: linear-gradient(#ffdd3c 0%, rgba(0,0,0,0) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 16px;
+    &__title{
+        text-align: center;
+        font-weight: bold;
+        color: #fafafa;
+        font-size: 52px;
+    }
+    &__container{
+        display: flex;
+        gap: 20px;
+        margin: 30px 0;
+        font-style: italic;
+        color: #fafafa;
+        & h3{
+            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2px;
+            & span{
+                font-size: 16px;
+            }
+        }
+    }
+    &__phrase{
+        color: #fafafa;
+        font-style: italic;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        & span{
+            text-align: center;
+            margin: 5px;
+            font-size: 16px;
+        }
+    }
+    &__btn{
+        padding: 10px 40px;
+        cursor: pointer;
+        border-radius: 30px;
+        margin-top: 20px;
+        border: 0;
+        transition: .3s;
+        &:hover{
+            background-color: #000;
+            color: #fafafa;
+        }
+    }
+}
