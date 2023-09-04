@@ -76,9 +76,6 @@ $width: 2em;
       animation-iteration-count: 1;
     }
     &.correct {
-      animation-name: correct;
-      animation-duration: .7s;
-      animation-iteration-count: 1;
       & .typo__item--particle {
         background-color:#6fe4ff;
         &.front {
@@ -223,14 +220,6 @@ $width: 2em;
   }
 }
 
-@keyframes correct{
-  0%{
-    scale:0.8;
-  }
-  100%{
-    scale:1;
-  }
-}
 @keyframes spin{
   0%{
     transform: rotate(0turn);

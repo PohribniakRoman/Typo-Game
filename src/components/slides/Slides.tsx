@@ -13,49 +13,49 @@ const slideList = [
     title: "level 1",
     complexity: 3,
     phrase:
-      "Lorem ipsum dolor sit amet.",
+      "The cat jumped on the bed and purred.",
   },
   {
     title: "level 2",
     complexity: 3,
     phrase:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      "A sudden downpour caught us off guard during the picnic, soaking everything.",
   },
   {
     title: "level 3",
     complexity: 2,
     phrase:
-      "Lorem ipsum dolor sit amet.",
+      "In the heart of the bustling city, a hidden oasis of tranquility awaited, beckoning weary souls.",
   },
   {
     title: "level 4",
     complexity: 2,
     phrase:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      "The quaint, dimly lit antique bookstore smelled of old leather-bound books and held forgotten memories within its dusty shelves.",
   },
   {
     title: "level 5",
     complexity: 2,
     phrase:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem eum enim voluptatibus.",
+      "With each determined stride, the marathon runner pushed past her physical and mental limits, inching closer to the finish line.",
   },
   {
     title: "level 6",
     complexity: 1,
     phrase:
-      "Lorem ipsum dolor sit amet.",
+      "The intricate tapestry of life weaves a complex, beautiful pattern, intertwining the threads of joy, sorrow, and love.",
   },
   {
     title: "level 7",
     complexity: 1,
     phrase:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      "Amidst the chaos and despair, a glimmer of hope ignited their spirits, fueling their resilience and resolve.",
   },
   {
     title: "level 8",
     complexity: 1,
     phrase:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem eum enim voluptatibus.",
+      "Beneath the starry sky, they danced to a silent melody, lost in the magic of the moment.",
   },
 ] as SlideItem[];
 

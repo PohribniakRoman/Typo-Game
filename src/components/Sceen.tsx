@@ -9,11 +9,14 @@ export const Sceen:React.FC = () => {
    
 
     return <section className="sceen">
-        {gameState.showEndScreen?
-        <EndScreen/>
+        {gameState.showEndScreen
+        ?<EndScreen/>
         :gameState.isStarted
-            ?<Typo/>
-            :<Select/>
+        ?<Typo/>
+        :<>
+            <h1 className="sceen__title">Typo-Game</h1>
+            <Select/>
+        </>
         }
         <div className="stars__container">
             <div id='stars'></div>

@@ -14,7 +14,7 @@ export const EndScreen:React.FC = () => {
         <h1 className="endscreen__title">Congratilations!</h1>
         <div className="endscreen__container">
             <h3>Score:
-                <span>{game.score}</span>
+                <span>{game.score*(4-(game.complexity?game.complexity:3))}</span>
             </h3>
             <h3>Time:
                 <span>{game.time}</span>

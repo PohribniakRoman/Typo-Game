@@ -12,11 +12,12 @@ $unit-of-measurement:2.6vw;
     transform-style: preserve-3d;
     height: 100%;
   }
-  &__form{
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  &__title{
+    position: absolute;
+    color: #fafafa;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 6vh;
+    font-size: 3vw;
   }
 }
